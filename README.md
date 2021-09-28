@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Header Tech](https://i.ibb.co/JH1Jdh4/image.png)
 
-## Available Scripts
+# Descripción
+Este repositorio contiene una app que muestra el pronostico del tiempo para ciertas ciudades del mundo, la misma está construida con ReactJS y en términos de tecnologias se usó:
 
-In the project directory, you can run:
+1. Redux.
+2. Openweathermap.
+3. Weather-icons.
+4. Google Fonts.
 
-### `npm start`
+Animate a descargarla y modificarla a tu antojo.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Vista Previa
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+![Vista Previa](https://i.ibb.co/cLvcxtM/image.png)
 
-### `npm test`
+## Scripts Disponibles
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `npm install | npm i | yarn install`
 
-### `npm run build`
+Ejecutar este script en la raiz del proyecto para instalar las dependencias neceasarias.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm start | yarn start`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Ejecutar este script en la raiz del proyecto para desplegar la app y luego ir al navegador por defecto y ver la dirección `localhost:3000`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Prácticas usadas
 
-### `npm run eject`
+### `Validación de datos en componentes`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    WeatherData.propTypes = {
+        data : PropTypes.shape({
+            temperature : PropTypes.number.isRequired,
+            weatherState : PropTypes.string.isRequired,
+            humidity : PropTypes.number.isRequired,
+            wind : PropTypes.string.isRequired
+        })
+    }
+    
+### `Doble destructuring`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    const WeatherData = ({ data : { temperature, weatherState, humidity, wind } }) => (
+        <div className="weaterDataCont">
+            <WeatherTemperature 
+                temperature={temperature}
+                weatherState={ weatherState }
+                />
+            <WeatherExtraInfo humidity={humidity} wind={wind}/>
+        </div>
+    )
+    
+### `Functional Components`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    const renderForeacastItemDays = ( forecastData ) => {
+        return forecastData.map ( forecastData => 
+            (
+                <ForecastItem 
+                    key={`${forecastData.weekDaya }${forecastData.hour}`}
+                    weekDay={ forecastData.weekDaya } 
+                    hour={forecastData.hour} 
+                    data={forecastData.data}
+                />
+            )
+        );
+    }
+    
+    
+### `Bindeo de global actions`
+    import * as actions from '../actions';
+    const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+    
+    
+## Estrucutura de carpetas
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![Estructura de carpetas](https://i.ibb.co/SrNBjft/image.png)
